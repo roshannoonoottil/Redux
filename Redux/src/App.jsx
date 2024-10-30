@@ -1,16 +1,15 @@
 import './App.css'
+import {Provider} from 'react-redux'
+import store from './Redux/Store'
+import Counter from './assets/Pages/Counter'
 
 function App() {
 
   return (
-    <>
-    <h1>Redux Counter</h1>
-    <div>
-        <button id="decrement">Decrement</button>
-        <span id="value">0</span>
-        <button id="increment">Incerement</button>
-    </div>
-    </>
+    <Provider store={store}>
+      <Counter/>
+    </Provider>
+
   )
 }
 
