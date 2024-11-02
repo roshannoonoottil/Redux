@@ -7,20 +7,21 @@ class CounterClass extends React.Component{
     render(){
         const {
             value,
-            dispatch
+            myIncrement,
+            myDecrement
         } = this.props;
         return(
             <div>
             <button onClick={()=>{
-                dispatch({
-                    type:'INCREMENT'
-                })
+
+                myIncrement()
+
             }}>Increment</button>
             <label>{value}</label>
             <button onClick={()=>{
-                dispatch({
-                    type:'DECREMENT'
-                })
+
+                myDecrement()
+               
             }}>Decrement</button>
         
         </div>
@@ -36,4 +37,26 @@ const mapStateToProps = (state) =>{
     };
 }
 
-export default connect(mapStateToProps)(CounterClass);
+const mapDispatchToProps = (dispatch) =>{
+
+    return{
+        
+        myIncrement:()=>{
+
+            dispatch({
+                type:'INCREMENT'
+            });
+
+        },
+        myDecrement:()=>{
+
+            dispatch({
+                type:'DECREMENT'
+            });
+
+        }
+
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CounterClass);
