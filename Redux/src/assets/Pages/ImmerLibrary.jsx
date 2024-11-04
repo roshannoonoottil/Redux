@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react'
-import { produce } from 'immer';
 
 
 const initialState = [
@@ -58,26 +57,20 @@ function ImmerLibrary() {
 
         setInfo((state) => {
 
-            //Insted of shallow clonig and deep cloning we can use immer function
-
-            const newState = produce(state, (draft)=>{
-                draft[0].rooms[0].text = evt.target.value;
-            })
-
             //Shallow Cloning
 
-            // var newState = [
-            //     {
-            //         ...state[0],
-            //         rooms :[
-            //         {
-            //             ...state[0].rooms[0], 
-            //             text : evt.target.value
-            //         }
-            //     ]
-            //     },
-            //     state[1]
-            // ];
+            var newState = [
+                {
+                    ...state[0],
+                    rooms :[
+                    {
+                        ...state[0].rooms[0], 
+                        text : evt.target.value
+                    }
+                ]
+                },
+                state[1]
+            ];
 
 
             //Deep Cloning
@@ -90,20 +83,15 @@ function ImmerLibrary() {
     const onCarChange = useCallback((evt) =>{
         setInfo((state) => {
 
-            //Same here Insted of shallow clonig and deep cloning we can use immer function
-            const newState = produce(state, (draft)=>{
-                draft[1].text = evt.target.value;
-            })
-
             //Shallow Cloning
 
-            // var newState = [
-            //     state[0],
-            //     {
-            //         ...state[1],
-            //         text : evt.target.value
-            //     }
-            // ];
+            var newState = [
+                state[0],
+                {
+                    ...state[1],
+                    text : evt.target.value
+                }
+            ];
 
 
             //Deep Cloning
