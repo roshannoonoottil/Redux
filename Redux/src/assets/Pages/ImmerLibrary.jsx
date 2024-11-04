@@ -52,31 +52,42 @@ function ImmerLibrary() {
     const onRoomChange = (evt) =>{
 
         setInfo((state) => {
-            var newState = [
-                {
-                    ...state[0],
-                    rooms :[
-                    {
-                        ...state[0].rooms[0], 
-                        text : evt.target.value
-                    }
-                ]
-                },
-                state[1]
-            ];
+            // var newState = [
+            //     {
+            //         ...state[0],
+            //         rooms :[
+            //         {
+            //             ...state[0].rooms[0], 
+            //             text : evt.target.value
+            //         }
+            //     ]
+            //     },
+            //     state[1]
+            // ];
+
+
+            //Deep Cloning
+            const newState = JSON.parse(JSON.stringify(state));
+            newState[0].rooms[0].text = evt.target.value;
             return newState;
         });
     }
 
     const onCarChange = (evt) =>{
         setInfo((state) => {
-            var newState = [
-                state[0],
-                {
-                    ...state[1],
-                    text : evt.target.value
-                }
-            ];
+            // var newState = [
+            //     state[0],
+            //     {
+            //         ...state[1],
+            //         text : evt.target.value
+            //     }
+            // ];
+
+
+            //Deep Cloning
+            const newState = JSON.parse(JSON.stringify(state));
+            newState[1].text = evt.target.value
+
                 return newState
         })
 
