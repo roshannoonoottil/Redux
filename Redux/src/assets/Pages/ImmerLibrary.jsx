@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 
 const initialState = [
@@ -20,6 +20,8 @@ const initialState = [
 ]
 
 function RoomName(props){
+    console.log('Room Name');
+    
     const {
         data,
         onChange
@@ -33,7 +35,9 @@ function RoomName(props){
     )
 }
 
-function CarName(props){
+const CarName = React.memo((props)=>{
+    console.log('Car Name');
+
     const {
         data,
         onChange
@@ -44,7 +48,7 @@ function CarName(props){
         <input type="text" value={data.text} onChange={onChange}/>
         </div>
     )
-}
+})
 
 function ImmerLibrary() {
     const [info, setInfo] = useState(initialState)
@@ -52,46 +56,52 @@ function ImmerLibrary() {
     const onRoomChange = (evt) =>{
 
         setInfo((state) => {
-            // var newState = [
-            //     {
-            //         ...state[0],
-            //         rooms :[
-            //         {
-            //             ...state[0].rooms[0], 
-            //             text : evt.target.value
-            //         }
-            //     ]
-            //     },
-            //     state[1]
-            // ];
+
+            //Shallow Cloning
+
+            var newState = [
+                {
+                    ...state[0],
+                    rooms :[
+                    {
+                        ...state[0].rooms[0], 
+                        text : evt.target.value
+                    }
+                ]
+                },
+                state[1]
+            ];
 
 
             //Deep Cloning
-            const newState = JSON.parse(JSON.stringify(state));
-            newState[0].rooms[0].text = evt.target.value;
+            // const newState = JSON.parse(JSON.stringify(state));
+            // newState[0].rooms[0].text = evt.target.value;
             return newState;
         });
     }
 
-    const onCarChange = (evt) =>{
+    const onCarChange = useCallback((evt) =>{
         setInfo((state) => {
-            // var newState = [
-            //     state[0],
-            //     {
-            //         ...state[1],
-            //         text : evt.target.value
-            //     }
-            // ];
+
+            //Shallow Cloning
+
+            var newState = [
+                state[0],
+                {
+                    ...state[1],
+                    text : evt.target.value
+                }
+            ];
 
 
             //Deep Cloning
-            const newState = JSON.parse(JSON.stringify(state));
-            newState[1].text = evt.target.value
+            // const newState = JSON.parse(JSON.stringify(state));
+            // newState[1].text = evt.target.value
 
                 return newState
         })
 
-    }
+    },[])
 
         console.log(info);
         
