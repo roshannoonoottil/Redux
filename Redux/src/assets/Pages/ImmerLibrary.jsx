@@ -49,6 +49,41 @@ function CarName(props){
 function ImmerLibrary() {
     const [info, setInfo] = useState(initialState)
 
+    const onRoomChange = (evt) =>{
+
+        setInfo((state) => {
+            var newState = [
+                {
+                    ...state[0],
+                    rooms :[
+                    {
+                        ...state[0].rooms[0], 
+                        text : evt.target.value
+                    }
+                ]
+                },
+                state[1]
+            ];
+            return newState;
+        });
+    }
+
+    const onCarChange = (evt) =>{
+        setInfo((state) => {
+            var newState = [
+                state[0],
+                {
+                    ...state[1],
+                    text : evt.target.value
+                }
+            ];
+                return newState
+        })
+
+    }
+
+        console.log(info);
+        
   return (
     <div>
         <RoomName data={info[0].rooms[0]} onChange={onRoomChange}/>
